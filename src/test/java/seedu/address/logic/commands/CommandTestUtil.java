@@ -3,18 +3,14 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEAPPLIED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATEINTERVIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBTITLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_POSITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUALIFICATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -25,7 +21,6 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.applicant.EditApplicant;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.job.EditJob;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.applicant.Applicant;
@@ -35,7 +30,6 @@ import seedu.address.model.job.JobTitleContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditApplicantDescriptorBuilder;
-import seedu.address.testutil.EditJobDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -109,38 +103,16 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_PROJECT_MANAGER = "65 Chulia Street, OCBC Centre";
     public static final String VALID_QUALIFICATION_DATA_ANALYSIS = "Degree in Data Science";
     public static final String VALID_QUALIFICATION_PROJECT_MANAGER = "Degree in Business Management";
+    // TODO: MAY NEED TO CAHNGE THIS DEPENDING ON HOW JOB STATUS IS IMPLEMENTED
+    public static final String VALID_JOB_STATUS_DATA_ANALYSIS = "vacant";
+    public static final String VALID_JOB_STATUS_PROJECT_MANAGER = "filled";
 
-    public static final String VALID_JOB_STATUS_PROJECT_MANAGER = "vacant";
-    public static final String VALID_JOB_STATUS_DATA_ANALYSIS = "filled";
-
-    public static final String VALID_POSITION_FULL_TIME = "ft";
-    public static final String VALID_POSITION_PART_TIME = "pt";
+    public static final String VALID_POSITION_DATA_ANALYSIS = "ft";
+    public static final String VALID_POSITION_PROJECT_MANAGER = "ft";
     public static final String VALID_SALARY_LOW_DATA_ANALYSIS = "6000";
     public static final String VALID_SALARY_HIGH_DATA_ANALYSIS = "8000";
     public static final String VALID_SALARY_LOW_PROJECT_MANAGER = "4000";
     public static final String VALID_SALARY_HIGH_PROJECT_MANAGER = "5000";
-
-    // First character in Job Title cannot be a whitespace.
-    public static final String INVALID_JOB_TITLE_DESC = " " + PREFIX_JOBTITLE + " Degree in Chemistry#";
-    // First character in Company name cannot be a whitespace.
-    public static final String INVALID_COMPANY_NAME_DESC = " " + PREFIX_COMPANY_NAME + " ";
-    // Only 'ft' and 'pt' are valid inputs.
-    public static final String INVALID_POSITION_DESC = " " + PREFIX_JOB_POSITION + "something";
-    // First value of the range must be lower than the second value of the range.
-    public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY + "4000-3000";
-
-    public static final String JOB_TITLE_DESC_DATA_ANALYSIS = " " + PREFIX_JOBTITLE + VALID_JOB_TITLE_DATA_ANALYSIS;
-    public static final String JOB_TITLE_DESC_PROJECT_MANAGER = " " + PREFIX_JOBTITLE + VALID_JOB_TITLE_PROJECT_MANAGER;
-    public static final String COMPANY_NAME_DESC_DATA_ANALYSIS = " " + PREFIX_COMPANY_NAME
-            + VALID_COMPANY_NAME_DATA_ANALYSIS;
-    public static final String COMPANY_NAME_DESC_PROJECT_MANAGER = " " + PREFIX_COMPANY_NAME
-            + VALID_COMPANY_NAME_PROJECT_MANAGER;
-    public static final String POSITION_DESC_DATA_ANALYSIS = " " + PREFIX_JOB_POSITION + VALID_POSITION_FULL_TIME;
-    public static final String POSITION_DESC_PROJECT_MANAGER = " " + PREFIX_JOB_POSITION + VALID_POSITION_FULL_TIME;
-    public static final String SALARY_DESC_DATA_ANALYSIS = " " + PREFIX_SALARY + VALID_SALARY_LOW_DATA_ANALYSIS + "-"
-            + VALID_SALARY_HIGH_DATA_ANALYSIS;
-    public static final String SALARY_DESC_PROJECT_MANAGER = " " + PREFIX_SALARY + VALID_SALARY_LOW_PROJECT_MANAGER
-            + "-" + VALID_SALARY_HIGH_PROJECT_MANAGER;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -152,8 +124,8 @@ public class CommandTestUtil {
     public static final EditApplicant.EditApplicantDescriptor DESC_DON;
     // ===================== Job ===============================
     // TODO THIS IS FOR THE EDITJOB COMMAND;
-    public static final EditJob.EditJobDescriptor DESC_DATA_ANALYSIS;
-    public static final EditJob.EditJobDescriptor DESC_PROJECT_MANAGER;
+    // public static final EditJob.EditJobDescripter DESC_DATA_ANALYSIS;
+    // public static final EditJob.EditJobDescripter DESC_PROJECT_MANAGER;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -170,14 +142,7 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_DON).withEmail(VALID_EMAIL_DON).withAddress(VALID_ADDRESS_DON)
                 .withNric(VALID_NRIC).withDateApplied(VALID_DATE).withInterviewDate(VALID_DATE)
                 .withQualification(VALID_QUALIFICATION).build();
-        DESC_DATA_ANALYSIS = new EditJobDescriptorBuilder().withJobTitle(VALID_JOB_TITLE_DATA_ANALYSIS)
-                .withCompanyName(VALID_COMPANY_NAME_DATA_ANALYSIS).withAddress(VALID_ADDRESS_DATA_ANALYSIS)
-                .withQualification(VALID_QUALIFICATION_DATA_ANALYSIS).withPosition(VALID_POSITION_FULL_TIME)
-                .withSalary(VALID_SALARY_LOW_DATA_ANALYSIS, VALID_SALARY_HIGH_DATA_ANALYSIS).build();
-        DESC_PROJECT_MANAGER = new EditJobDescriptorBuilder().withJobTitle(VALID_JOB_TITLE_PROJECT_MANAGER)
-                .withCompanyName(VALID_COMPANY_NAME_PROJECT_MANAGER).withAddress(VALID_ADDRESS_PROJECT_MANAGER)
-                .withQualification(VALID_QUALIFICATION_DATA_ANALYSIS).withPosition(VALID_POSITION_FULL_TIME)
-                .withSalary(VALID_SALARY_LOW_PROJECT_MANAGER, VALID_SALARY_HIGH_PROJECT_MANAGER).build();
+        // TODO ADD DESC_DATAANALYSIS AND PROJECT MANAGER
     }
 
     /**
@@ -258,11 +223,10 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredJobList().size());
 
         Job job = model.getFilteredJobList().get(targetIndex.getZeroBased());
-        final String[] splitName = job.getJobTitle().jobTitle.split("\\s+");
-        model.updateFilteredJobList(new NameJobContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        final String[] splitJobTitle = job.getJobTitle().jobTitle.split("\\s+");
+        model.updateFilteredJobList(new JobTitleContainsKeywordsPredicate(Arrays.asList(splitJobTitle[0])));
 
-        assertEquals(1, model.getFilteredJobList().size());
-
+        assertEquals(1, model.getFilteredApplicantList().size());
     }
 
 
