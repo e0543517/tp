@@ -19,6 +19,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Applicant> PREDICATE_SHOW_ALL_APPLICANTS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Job> PREDICATE_SHOW_ALL_JOBS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -102,25 +105,6 @@ public interface Model {
      */
     void deleteApplicant(Applicant target);
 
-    // ============================= Job ================================
-
-    /**
-     * Add a given job to filteredlist
-     */
-    void addJob(Job job);
-
-    /**
-     * Returns true if a job with the same identity as {@code job} exists in the address book.
-     */
-    boolean hasJob(Job job);
-
-    /**
-     * Returns the current IdCount()
-     */
-    String getIdCount();
-
-    //--------------ReCLIne------------------------------
-
     /**
      * Adds a given Applicant to filteredList
      */
@@ -143,5 +127,55 @@ public interface Model {
      */
     void updateFilteredApplicantList(Predicate<Applicant> predicate);
 
+    // ============================= Job ================================
+
+    /**
+     * Add a given job to filteredlist
+     */
+    void addJob(Job job);
+
+    /**
+     * Returns true if a job with the same identity as {@code job} exists in the address book.
+     */
+    boolean hasJob(Job job);
+
+    /**
+     * Replaces the given job {@code target} with {@code editedJob}.
+     * {@code target} must exist in the address book.
+     * The job identity of {@code editedJob} must not be the same as another existing job
+     * in the address book.
+     */
+    void setJob(Job target, Job editedJob);
+
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Job> getFilteredJobList();
+
+    /**
+     * Updates the filter of the filtered job list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredJobList(Predicate<Job> predicate);
+
+    /**
+     * Returns the current IdCount()
+     */
+    String getIdCount();
+
+
+
+    /** Returns an unmodifiable view of the filtered job list */
+    ObservableList<Job> getFilteredJobList();
+
+    /**
+     * Deletes the given job.
+     * The job must exist in the address book.
+     */
+    void deleteJob(Job target);
+
+    /**
+     * Updates the filter of the filtered job list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredJobList(Predicate<Job> predicate);
 }
 

@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUALIFICATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPLICANTS;
 
@@ -58,7 +57,6 @@ public class EditApplicant extends Command {
             + "[" + PREFIX_DATEAPPLIED + "DATE APPLIED] "
             + "[" + PREFIX_JOB + "JOB ID] "
             + "[" + PREFIX_DATEINTERVIEW + "DATE OF INTERVIEW] "
-            + "[" + PREFIX_STATUS + "APPLICATION STATUS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -185,7 +183,6 @@ public class EditApplicant extends Command {
             setInterviewDate(toCopy.interviewDate);
             setQualification(toCopy.qualification);
             setDateApplied(toCopy.dateApplied);
-            setJobId(toCopy.jobId);
             setJobId(toCopy.jobId);
             setTags(toCopy.tags);
         }
