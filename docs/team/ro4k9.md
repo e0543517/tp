@@ -5,7 +5,6 @@ title: Rosa Kang's Project Portfolio Page
 
 ### Project: ReCLIne
 
-####Overview
 ReCLIne is a profile management desktop application that can be used by recruiters. It serves as a centralised location for recruiters to organise their applicant and job data. Users can interact with ReCLIne using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10kLoC.
 
 Given below are my contributions to the project.
